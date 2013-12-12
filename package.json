@@ -1,6 +1,6 @@
 {
   "name": "locus",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Line focuser",
   "main": "lib/locus.js",
   "scripts": {
@@ -26,6 +26,7 @@
   ],
   "author": "Ali Davut",
   "license": "BSD-2-Clause",
+  "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/alidavut/locus/issues"
   }
