@@ -1,8 +1,12 @@
+global.locus_variables ?= {}
+global.locus_variables.modules ?= {}
+global.locus_variables.modules.sync_prompt = require.resolve('sync-prompt')
+
 class Locus
   @listen: (context)->
     quit = false
     while !quit
-      prompt = require('sync-prompt').prompt
+      prompt = require(locus_variables.modules.sync_prompt).prompt
       input = prompt('> ').trim()
       try
         if input == 'quit'
