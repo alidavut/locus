@@ -9,9 +9,7 @@ npm install locus
 ```
 
 ## Using
-To load locus globally add this line of code in any file of the project: ```
-require('locus')
-```
+To load locus globally add this line of code in any file of the project: ``` require('locus') ```
 
 Note: Loading in development environments is recommended.
 
