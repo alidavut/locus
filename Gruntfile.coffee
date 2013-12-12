@@ -1,5 +1,6 @@
 module.exports = (grunt) ->
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
     coffee:
@@ -9,7 +10,7 @@ module.exports = (grunt) ->
 
     watch:
       lib:
-        files: ['lib/*.coffee']
+        files: ['src/*.coffee']
         tasks: ['coffee:lib']
 
   grunt.registerTask('default', ['coffee'])
