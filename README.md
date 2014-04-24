@@ -1,7 +1,7 @@
 LOCUS
 =====
 
-Locus is a line injection module for node.js (like binding.pry for ruby)
+Locus is a line injection module for node.js.
 
 It allows to open a REPL during your program execution, with access to all variables.
 
