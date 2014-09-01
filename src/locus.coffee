@@ -9,7 +9,7 @@ class Locus
       prompt = require(locus_variables.modules.sync_prompt).prompt
       input = prompt('> ').trim()
       try
-        if input == 'quit'
+        if input == 'quit' || input == 'exit'
           quit = true
         else
           console.log(eval(input))
