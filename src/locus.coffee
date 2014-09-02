@@ -3,7 +3,7 @@ global.locus_variables.modules ?= {}
 global.locus_variables.modules.sync_prompt = require.resolve('sync-prompt')
 
 class Locus
-  @listen: (context)->
+  @listen: ->
     quit = false
     while !quit
       prompt = require(locus_variables.modules.sync_prompt).prompt
@@ -16,4 +16,4 @@ class Locus
       catch e
         console.log(e)
 
-global.locus = "(#{Locus.listen.toString()})()"
+global.locus = "(#{Locus.listen.toString()}).call(this)"
