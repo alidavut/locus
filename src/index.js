@@ -74,3 +74,4 @@ function listener() {
 }
 
 global.locus = '(' + listener.toString() + ').call(this)';
+module.exports = locus;

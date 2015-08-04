@@ -1,6 +1,6 @@
 {
   "name": "locus",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Line focuser",
   "main": "src/index.js",
   "files": [
