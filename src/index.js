@@ -2,18 +2,15 @@ global.locusModules = {};
 global.locusModules.deasync = require.resolve('deasync');
 global.locusModules.color = require.resolve('cli-color');
 global.locusModules.stackTrace = require.resolve('stack-trace');
-global.locusHistory = [];
+global.locusReadLine = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 function listener() {
   var done = false;
-  var readline = require('readline');
   var color = require(global.locusModules.color);
   var deasync = require(global.locusModules.deasync);
-
-  var rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
 
   writeBlock();
   exec.call(this);
@@ -65,7 +62,7 @@ function listener() {
     };
 
     var __self = this;
-    rl.question(color.blueBright('ʆ: '), function (text) {
+    locusReadLine.question(color.blueBright('ʆ: '), function (text) {
       cb.call(__self, text);
     });
   }
