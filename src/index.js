@@ -19,7 +19,7 @@ function listener() {
   exec.call(this);
 
   function writeBlock () {
-    var trace = require(global.locusModules.stackTrace).get();
+    var trace = require(global.locusModules.stackTrace).parse(new Error());
     var fileName = trace[3].getFileName();
     var file = require('fs').readFileSync(fileName, 'utf8');
     var lines = file.split('\n');
