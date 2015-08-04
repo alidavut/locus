@@ -16,7 +16,7 @@ function listener() {
   });
 
   writeBlock();
-  exec();
+  exec.call(this);
 
   function writeBlock () {
     var trace = require(global.locusModules.stackTrace).get();
@@ -42,26 +42,31 @@ function listener() {
   }
 
   function exec() {
-    rl.question(color.blueBright('ʆ: '), function (text) {
+    var cb = function (text) {
       try {
         if (text === 'quit' || text === 'exit') {
           return done = true;
         } else {
           var result = eval(text);
 
-          if (result.text === null) {
+          if (result === null) {
             result = 'null';
           } else if (result === undefined) {
             result = 'undefined';
           }
 
           console.log(color.greenBright(result));
-          exec();
+          exec.call(this);
         }
       } catch(err) {
         console.log(color.redBright(err));
-        exec();
+        exec.call(this);
       }
+    };
+
+    var __self = this;
+    rl.question(color.blueBright('ʆ: '), function (text) {
+      cb.call(__self, text);
     });
   }
 
