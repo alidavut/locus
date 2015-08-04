@@ -1,14 +1,13 @@
-LOCUS
-=====
+ʆ LOCUS
+=======
 
 Locus is a line injection module for node.js.
 
 It allows to open a REPL during your program execution, with access to all variables.
 
-
 ## Installing
 
-```
+```bash
 npm install locus
 ```
 
@@ -23,30 +22,19 @@ To leave locus just type ``` quit ```
 
 ### Example session
 
-Code : `test.js`
+Code : `example.js`
 
 ```javascript
-'use strict';
-
 require('locus');
 
-console.log('Hello world !');
-
-var foo = 'bar';
-console.log("foo is :", foo);
+function repeat(str, count) {
+  var result = '';
+  for(var i = 0; i < count; i++) {
+    result += str;
+  }
+  return result;
+}
 eval(locus);
-console.log("foo is now :", foo);
-```
 
-Now run this program with `node test.js` :
-
-```
-Hello world !
-foo is : bar
-> foo          <-- here the REPL open. I type "foo"
-bar            <-- and get its value : I have access to program scope variables !
-> foo="baz"    <-- I now manually override foo
-baz
-> quit         <-- and exit the REPL
-foo is now : baz  <-- foo did change in program scope !
+console.log('finished');
 ```

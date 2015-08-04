@@ -1,31 +1,30 @@
 {
   "name": "locus",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Line focuser",
-  "main": "lib/locus.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alidavut/locus.git"
-  },
+  "main": "src/index.js",
+  "files": [
+    "src/"
+  ],
   "dependencies": {
-    "sync-prompt": "~0.2.2"
-  },
-  "devDependencies": {
-    "matchdep": "~0.1.2",
-    "grunt": "~0.4.1",
-    "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-watch": "~0.5.3"
+    "cli-color": "^1.0.0",
+    "deasync": "^0.1.0",
+    "prompt": "^0.2.14",
+    "stack-trace": "0.0.9"
   },
   "keywords": [
+    "debug",
+    "repl",
     "debugger",
     "line",
     "injection"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alidavut/locus.git"
+  },
   "author": "Ali Davut",
-  "license": "BSD-2-Clause",
+  "license": "LGPL-3.0",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/alidavut/locus/issues"
