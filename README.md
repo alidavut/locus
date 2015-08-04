@@ -16,7 +16,7 @@ To load locus globally add this line of code in any file of the project: ``` req
 
 Note: Loading in development environments is recommended.
 
-Then use this command in any line: ``` eval(locus) ```
+Then use this command in any line: ``` eval(locus) ``` or ```eval(require('locus'))```
 
 To leave locus just type ``` quit ```
 
