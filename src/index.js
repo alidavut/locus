@@ -1,16 +1,19 @@
+var completer = require('./completer');
 global.locusModules = {};
 global.locusModules.deasync = require.resolve('deasync');
 global.locusModules.color = require.resolve('cli-color');
 global.locusModules.stackTrace = require.resolve('stack-trace');
 global.locusReadLine = require('readline').createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
+  completer: completer
 });
 
 function listener() {
   var done = false;
   var color = require(global.locusModules.color);
   var deasync = require(global.locusModules.deasync);
+  var globals;
 
   writeBlock();
   exec.call(this);
