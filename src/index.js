@@ -1,10 +1,12 @@
+var completer = require('./completer');
 global.locusModules = {};
 global.locusModules.deasync = require.resolve('deasync');
 global.locusModules.color = require.resolve('cli-color');
 global.locusModules.stackTrace = require.resolve('stack-trace');
 global.locusReadLine = require('readline').createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
+  completer: completer
 });
 
 function listener() {
