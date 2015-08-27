@@ -11,6 +11,8 @@ function listener() {
   global.locusDone = false;
   var localDone = false;
   var color = require(global.locusModules.color);
+  var util = require('util');
+
   var rl = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
@@ -51,14 +53,7 @@ function listener() {
           return localDone = true;
         } else {
           var result = eval(text);
-
-          if (result === null) {
-            result = 'null';
-          } else if (result === undefined) {
-            result = 'undefined';
-          }
-
-          console.log(color.greenBright(result));
+          console.log(color.greenBright(util.inspect(result, false, 1, true)));
           exec.call(this);
         }
       } catch(err) {
