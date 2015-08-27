@@ -42,6 +42,7 @@ function listener() {
     var cb = function (text) {
       try {
         if (text === 'quit' || text === 'exit') {
+          locusReadLine.close();
           return done = true;
         } else {
           var result = eval(text);
