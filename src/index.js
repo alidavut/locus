@@ -2,15 +2,19 @@ global.locusModules = {};
 global.locusModules.deasync = require.resolve('deasync');
 global.locusModules.color = require.resolve('cli-color');
 global.locusModules.stackTrace = require.resolve('stack-trace');
-global.locusReadLine = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+global.locusDone = true;
 
 function listener() {
-  var done = false;
-  var color = require(global.locusModules.color);
   var deasync = require(global.locusModules.deasync);
+  deasync.loopWhile(function(){ return !locusDone });
+
+  global.locusDone = false;
+  var localDone = false;
+  var color = require(global.locusModules.color);
+  var rl = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
   writeBlock();
   exec.call(this);
@@ -42,8 +46,9 @@ function listener() {
     var cb = function (text) {
       try {
         if (text === 'quit' || text === 'exit') {
-          locusReadLine.close();
-          return done = true;
+          rl.close();
+          global.locusDone = true;
+          return localDone = true;
         } else {
           var result = eval(text);
 
@@ -63,12 +68,12 @@ function listener() {
     };
 
     var __self = this;
-    locusReadLine.question(color.blueBright('ʆ: '), function (text) {
+    rl.question(color.blueBright('ʆ: '), function (text) {
       cb.call(__self, text);
     });
   }
 
-  deasync.loopWhile(function(){ return !done });
+  deasync.loopWhile(function(){ return !localDone });
 }
 
 global.locus = '(' + listener.toString() + ').call(this)';
