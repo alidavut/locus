@@ -5,6 +5,9 @@ global.locusModules.stackTrace = require.resolve('stack-trace');
 global.locusDone = true;
 
 function listener() {
+  var EXCLUDED_NAMES = ['global', 'GLOBAL', 'locusModules',
+                      'locusReadLine', 'locusDone', 'locus'];
+
   var deasync = require(global.locusModules.deasync);
   deasync.loopWhile(function(){ return !locusDone });
 
@@ -15,7 +18,8 @@ function listener() {
 
   var rl = require('readline').createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
+    completer: completer
   });
 
   writeBlock();
@@ -66,6 +70,32 @@ function listener() {
     rl.question(color.blueBright('ʆ: '), function (text) {
       cb.call(__self, text);
     });
+  }
+
+  function completer(text, cb, scope) {
+    scope = scope || 'GLOBAL';
+
+    var lastDot = text.lastIndexOf('.');
+    var parent = text.slice(0, lastDot);
+    var name = text.slice(lastDot + 1);
+    if (lastDot > -1) {
+      return completer(name, null, parent);
+    }
+
+    var target = eval(scope);
+    if (typeof target !== 'object' || target == null) {
+      return [[], text];
+    }
+
+    var list = Object.keys(target).filter(function(prop) {
+      return EXCLUDED_NAMES.indexOf(prop) === -1;
+    });
+
+    var matches = list.filter(function(prop) {
+      return prop.indexOf(text) === 0;
+    });
+
+    return [matches, text];
   }
 
   deasync.loopWhile(function(){ return !localDone });
