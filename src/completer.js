@@ -1,4 +1,5 @@
-var EXCLUDED_NAMES = ['global', 'GLOBAL', 'locusModules', 'locusReadLine'];
+var EXCLUDED_NAMES = ['global', 'GLOBAL', 'locusModules',
+                      'locusReadLine', 'locusDone'];
 
 module.exports = function completer(text, cb, scope) {
   scope = scope || 'GLOBAL';
