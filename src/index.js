@@ -8,11 +8,21 @@ global.locusReadLine = require('readline').createInterface({
   output: process.stdout,
   completer: completer
 });
+global.locusDone = true;
 
 function listener() {
-  var done = false;
-  var color = require(global.locusModules.color);
   var deasync = require(global.locusModules.deasync);
+  deasync.loopWhile(function(){ return !locusDone });
+
+  global.locusDone = false;
+  var localDone = false;
+  var color = require(global.locusModules.color);
+  var util = require('util');
+
+  var rl = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
   writeBlock();
   exec.call(this);
@@ -44,17 +54,12 @@ function listener() {
     var cb = function (text) {
       try {
         if (text === 'quit' || text === 'exit') {
-          return done = true;
+          rl.close();
+          global.locusDone = true;
+          return localDone = true;
         } else {
           var result = eval(text);
-
-          if (result === null) {
-            result = 'null';
-          } else if (result === undefined) {
-            result = 'undefined';
-          }
-
-          console.log(color.greenBright(result));
+          console.log(color.greenBright(util.inspect(result, false, 1, true)));
           exec.call(this);
         }
       } catch(err) {
@@ -64,12 +69,12 @@ function listener() {
     };
 
     var __self = this;
-    locusReadLine.question(color.blueBright('ʆ: '), function (text) {
+    rl.question(color.blueBright('ʆ: '), function (text) {
       cb.call(__self, text);
     });
   }
 
-  deasync.loopWhile(function(){ return !done });
+  deasync.loopWhile(function(){ return !localDone });
 }
 
 global.locus = '(' + listener.toString() + ').call(this)';
