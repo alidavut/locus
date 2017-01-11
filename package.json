@@ -1,16 +1,19 @@
 {
   "name": "locus",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Line focuser",
-  "main": "src/index.js",
+  "main": "src/locus.js",
   "files": [
     "src/"
   ],
   "dependencies": {
+    "bindings": "^1.2.1",
+    "cardinal": "^1.0.0",
     "cli-color": "^1.0.0",
     "deasync": "^0.1.0",
-    "prompt": "^0.2.14",
-    "stack-trace": "0.0.9"
+    "lodash": "^4.17.3",
+    "parse-stack": "^0.1.4",
+    "prompt": "^0.2.14"
   },
   "keywords": [
     "debug",
