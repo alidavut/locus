@@ -27,6 +27,7 @@ function listener() {
 
   function writeBlock () {
     var trace = require(global.locusModules.stackTrace).parse(new Error());
+    if (! trace.length) return
     var fileName = trace[3].getFileName();
     var file = require('fs').readFileSync(fileName, 'utf8');
     var lines = file.split('\n');
