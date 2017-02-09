@@ -6,12 +6,13 @@ global.__locus_modules__ = {
   deasync: require('deasync'),
   color: require('cli-color'),
   parseStack: require('parse-stack'),
-  print: require('./print'),
   lodash: require('lodash'),
   cardinal: require('cardinal'),
-  syntaxTheme: require('cardinal/themes/tomorrow-night.js'),
-  prompt: require('./prompt')
+  syntaxTheme: require('cardinal/themes/tomorrow-night.js')
 }
+
+global.__locus_modules__.print = require('./print');
+global.__locus_modules__.prompt = require('./prompt');
 
 global.__locus_running__ = false;
 global.locus = module.exports = script;

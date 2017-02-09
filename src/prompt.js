@@ -1,16 +1,18 @@
-var rl = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  // completer: completer
-});
+var readline = require('readline');
+var color = __locus_modules__.color;
+var rl;
 
-exports.get = function(cb) {
-  var color = __locus_modules__.color;
+exports.get = __locus_modules__.deasync(function(cb) {
+  rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    // completer: completer
+  });
 
   rl.question(color.blueBright('ʆ: '), function (text) {
-    cb(text);
+    cb(null, text);
   });
-}
+});
 
 exports.close = function() {
   rl.close();
