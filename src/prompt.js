@@ -3,7 +3,7 @@ var color = __locus_modules__.color;
 var rl;
 
 exports.get = __locus_modules__.deasync(function(cb) {
-  rl = readline.createInterface({
+  rl = rl || readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     // completer: completer
@@ -16,4 +16,5 @@ exports.get = __locus_modules__.deasync(function(cb) {
 
 exports.close = function() {
   rl.close();
+  rl = null;
 };
