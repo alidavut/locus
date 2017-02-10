@@ -3,6 +3,8 @@
 
 Locus is a debugging module which allows you to execute commands at runtime via a REPL.
 
+[![asciicast](screenshot.png)](https://asciinema.org/a/102735?autoplay=1&speed=1.5)
+
 ## Installing
 
 ```bash
