@@ -1,8 +1,11 @@
 {
   "name": "locus",
-  "version": "2.0.0",
+  "version": "2.0.4-beta",
   "description": "Line focuser",
   "main": "src/locus.js",
+  "scripts": {
+    "postinstall": "mkdir ./histories"
+  },
   "files": [
     "src/"
   ],

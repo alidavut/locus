@@ -1,8 +1,6 @@
 var escope = require('escope');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
-
-var UglifyJS = require("uglify-js");
 var fs = require('fs');
 var _ = require('lodash');
 
