@@ -1,42 +1,38 @@
-ʆ LOCUS
+ʆ Locus
 =======
 
-Locus is a line injection module for node.js.
-
-It allows to open a REPL during your program execution, with access to all variables.
+Locus is a debugging module which allows you to execute commands at runtime via a REPL.
 
 ## Installing
 
 ```bash
-npm install locus
+npm install locus --save-dev
 ```
 
 ## Using
-To load locus globally add this line of code in any file of the project: ``` require('locus') ```
-
-Note: Loading in development environments is recommended.
-
-Then use this command in any line: ``` eval(locus) ``` or ```eval(require('locus'))```
-
-To leave locus just type ``` quit ```
-
-### Example session
-
-Code : `example.js`
 
 ```javascript
 require('locus');
 
-function repeat(str, count) {
-  var result = '';
-  for(var i = 0; i < count; i++) {
-    result += str;
-  }
-  return result;
-}
-eval(locus);
+var myVar = 123;
+var myObj = {
+  key: 'value'
+};
 
-console.log('finished');
+function makeSomething() {
+  var some = 'some value';
+
+  // will start a repl session
+  // you can manipulate the program at runtime
+  eval(locus);
+
+  // another option
+  eval(require('locus'))
+
+  return some;
+}
+
+makeSomething();
 ```
 
-![example.png](example.png)
+Use **exit** command to leave.
