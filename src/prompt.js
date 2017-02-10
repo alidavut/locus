@@ -1,20 +1,24 @@
 var path = require('path');
-var readline = __locus_modules__.readline;
-var md5 = __locus_modules__.md5;
-var color = __locus_modules__.color;
+var readline = require('readline-history');
+var md5 = require('md5');
+var color = require('cli-color');
+var deasync = require('deasync');
+var variables = require('./variables');
 var _rl;
 
-function completer(line) {
-  var globalKeys = Object.keys(global);
+function generateCompleter(filepath) {
+  var fileVariables = Object.keys(global).concat(variables.get(filepath));
 
-  var hits = globalKeys.filter(function(c){
-    return c.indexOf(line) === 0
-  });
+  return function(line) {
+    var hits = fileVariables.filter(function(c){
+      return c.indexOf(line) === 0
+    });
 
-  return [hits.length ? hits : globalKeys, line];
+    return [hits.length ? hits : fileVariables, line];
+  }
 }
 
-var rl = __locus_modules__.deasync(function(filepath, cb) {
+var rl = deasync(function(filepath, cb) {
   if (_rl) return cb(null, _rl);
 
   readline.createInterface({
@@ -22,7 +26,7 @@ var rl = __locus_modules__.deasync(function(filepath, cb) {
     maxLength: 100,
     input: process.stdin,
     output: process.stdout,
-    completer: completer,
+    completer: generateCompleter(filepath),
     next: function(rli) {
       _rl = rli;
       cb(null, _rl);
@@ -30,7 +34,7 @@ var rl = __locus_modules__.deasync(function(filepath, cb) {
   });
 });
 
-exports.get = __locus_modules__.deasync(function(filepath, cb) {
+exports.get = deasync(function(filepath, cb) {
   rl(filepath).question(color.blueBright('ʆ: '), function (text) {
     cb(null, text);
   });

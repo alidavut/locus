@@ -15,7 +15,8 @@
     "md5": "^2.2.1",
     "parse-stack": "^0.1.4",
     "prompt": "^0.2.14",
-    "readline-history": "^1.2.0"
+    "readline-history": "^1.2.0",
+    "uglify-js": "^2.7.5"
   },
   "keywords": [
     "debug",

@@ -1,12 +1,11 @@
 var fs = require('fs');
 var util = require('util');
+var color = require('cli-color');
+var highlight = require('cardinal').highlight;
+var syntaxTheme = require('cardinal/themes/tomorrow-night.js');
+var _ = require('lodash');
 
 exports.file = function(path, line) {
-  var color = __locus_modules__.color;
-  var _ = __locus_modules__.lodash;
-  var highlight = __locus_modules__.cardinal.highlight;
-  var syntaxTheme = __locus_modules__.syntaxTheme;
-
   var file = highlight(
     fs.readFileSync(path, 'utf-8'),
     { theme: syntaxTheme }
@@ -37,11 +36,9 @@ exports.file = function(path, line) {
 }
 
 exports.success = function(result) {
-  var color = __locus_modules__.color;
   console.log(color.greenBright(util.inspect(result, false, 1, true)));
 }
 
 exports.error = function(err) {
-  var color = __locus_modules__.color;
   console.log(color.redBright(err));
 }
