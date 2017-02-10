@@ -8,7 +8,9 @@ global.__locus_modules__ = {
   parseStack: require('parse-stack'),
   lodash: require('lodash'),
   cardinal: require('cardinal'),
-  syntaxTheme: require('cardinal/themes/tomorrow-night.js')
+  syntaxTheme: require('cardinal/themes/tomorrow-night.js'),
+  readline: require('readline-history'),
+  md5: require('md5')
 }
 
 global.__locus_modules__.print = require('./print');

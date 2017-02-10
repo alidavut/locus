@@ -11,7 +11,7 @@ __locus_modules__.print.file(__locus_filepath__, __locus_line__);
 while (true) {
   __locus_running__ = true;
 
-  var __locus_code__ = __locus_modules__.prompt.get();
+  var __locus_code__ = __locus_modules__.prompt.get(__locus_filepath__);
 
   try {
     if (__locus_code__ === 'exit') {

@@ -12,8 +12,10 @@
     "cli-color": "^1.0.0",
     "deasync": "^0.1.0",
     "lodash": "^4.17.3",
+    "md5": "^2.2.1",
     "parse-stack": "^0.1.4",
-    "prompt": "^0.2.14"
+    "prompt": "^0.2.14",
+    "readline-history": "^1.2.0"
   },
   "keywords": [
     "debug",
