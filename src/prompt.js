@@ -4,17 +4,42 @@ var md5 = require('md5');
 var color = require('cli-color');
 var deasync = require('deasync');
 var variables = require('./variables');
+var _ = require('lodash');
 var _rl;
+
+function getAllProperties(obj) {
+  var prototype = obj.constructor.prototype;
+
+  return Object.getOwnPropertyNames(
+    Object.getPrototypeOf(prototype) || prototype
+  ).concat(Object.getOwnPropertyNames(obj));
+}
 
 function generateCompleter(filepath) {
   var fileVariables = Object.keys(global).concat(variables.get(filepath));
 
   return function(line) {
-    var hits = fileVariables.filter(function(c){
+    var lineArray = line.split('.');
+    var possibleHints;
+
+    if (lineArray.length === 2) {
+      var object = __locus_eval__(lineArray[0]);
+      possibleHints = getAllProperties(object).map(function(i) {
+        return lineArray[0] + '.' + i;
+      });
+    } else if (lineArray.length > 2) {
+      possibleHints = [];
+    } else {
+      possibleHints = fileVariables;
+    }
+
+    var hits = possibleHints.filter(function(c){
       return c.indexOf(line) === 0
     });
 
-    return [hits.length ? hits : fileVariables, line];
+    var result = [hits.length ? hits : possibleHints, line];
+
+    return _.take(result, 20);
   }
 }
 

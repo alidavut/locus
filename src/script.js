@@ -8,6 +8,11 @@ __locus_modules__.deasync.loopWhile(function() {
 
 __locus_modules__.print.file(__locus_filepath__, __locus_line__);
 
+// for autocomplete improvements
+global.__locus_eval__ = function(code) {
+  return eval(code);
+}
+
 while (true) {
   __locus_running__ = true;
 
