@@ -1,6 +1,6 @@
 {
   "name": "locus",
-  "version": "2.0.5-beta",
+  "version": "2.0.1",
   "description": "Line focuser",
   "main": "src/locus.js",
   "scripts": {
@@ -32,12 +32,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/alidavut/locus.git"
+    "url": "https://github.com/Buildize/locus.git"
   },
   "author": "Ali Davut",
   "license": "LGPL-3.0",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/alidavut/locus/issues"
+    "url": "https://github.com/Buildize/locus/issues"
   }
 }
