@@ -1,23 +1,36 @@
+var escope = require('escope');
+var esprima = require('esprima');
+var estraverse = require('estraverse');
+
 var UglifyJS = require("uglify-js");
 var fs = require('fs');
 var _ = require('lodash');
 
 exports.get = function(filepath) {
   var variables = [];
-  var ast = UglifyJS.parse(fs.readFileSync(filepath, 'utf-8'));
-  ast.figure_out_scope();
 
-  var walker = new UglifyJS.TreeWalker(function(node) {
-    if (node.variables) {
-      var nodeVariables = _.values(node.variables._values).map(function(item) {
-        return item.name;
-      });
+  try {
+    var ast = esprima.parse(fs.readFileSync(filepath, 'utf-8'));
+  } catch(e) {
+    return [];
+  }
 
-      variables = variables.concat(nodeVariables);
+  var scopeManager = escope.analyze(ast);
+  var currentScope = scopeManager.acquire(ast);
+
+  estraverse.traverse(ast, {
+    leave: function(node, parent) {
+      var scope = scopeManager.acquire(node);
+
+      if (scope) {
+        var nodeVariables = _.values(scope.variables).map(function(item) {
+          return item.name;
+        });
+
+        variables = variables.concat(nodeVariables)
+      }
     }
   });
-
-  ast.walk(walker);
 
   return _.uniq(variables);
 }
