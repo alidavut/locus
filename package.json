@@ -4,7 +4,7 @@
   "description": "Line focuser",
   "main": "src/locus.js",
   "scripts": {
-    "postinstall": "mkdir ./histories"
+    "postinstall": "node ./src/postinstall.js"
   },
   "files": [
     "src/"
