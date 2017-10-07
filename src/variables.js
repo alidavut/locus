@@ -10,11 +10,19 @@ var _ = require('lodash');
 
 const variables = { }
 
-/*
+/**
+ * List all variables in a JS string.
+ *
  * @param {string} text
+ *
+ * @example
+ *   variables.getString('let x = 1') // new Set(['x'])
+ *
+ * @returns {set} a set of variable names contained in the program.
+ *
  */
 
-variables.getString = function get (text) {
+variables.getString = function getString (text) {
 
 	const variables = [ ]
 
@@ -48,7 +56,20 @@ variables.getString = function get (text) {
 
 }
 
-variables.getFile = function get (filepath) {
+
+/**
+ * List all variables in a JS file.
+ *
+ * @param {string} path
+ *
+ * @example
+ *   variables.getFile('foo.js')
+ *
+ * @returns {set} a set of variable names contained in the program.
+ *
+ */
+
+variables.getFile = function getFile (filepath) {
 	return variables.getString(fs.readFileSync(filepath, 'utf-8'))
 }
 
