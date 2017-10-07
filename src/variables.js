@@ -1,8 +1,10 @@
-var escope = require('escope');
-var esprima = require('esprima');
-var estraverse = require('estraverse');
-var fs = require('fs');
-var _ = require('lodash');
+
+'use strict'
+
+const escope = require('escope');
+const esprima = require('esprima');
+const estraverse = require('estraverse');
+const fs = require('fs');
 
 
 
@@ -13,7 +15,7 @@ const variables = { }
 /**
  * List all variables in a JS string.
  *
- * @param {string} text
+ * @param {string} text the text to parse.
  *
  * @example
  *   variables.getString('let x = 1') // new Set(['x'])
@@ -22,13 +24,13 @@ const variables = { }
  *
  */
 
-variables.getString = function getString (text) {
+variables.getString = function getString (text, strict = false) {
 
 	const variables = [ ]
 
 	try {
 
-		var ast = esprima.parse(text)
+		const ast = esprima.parse(text)
 
 		const scopeManager = escope.analyze(ast)
 		const currentScope = scopeManager.acquire(ast)
@@ -50,7 +52,13 @@ variables.getString = function getString (text) {
 		})
 
 
-	} catch (err) { }
+	// no need to display parse-errors.
+
+	} catch (err) {
+		if (strict) {
+			throw err
+		}
+	}
 
 	return new Set(variables)
 
@@ -60,7 +68,7 @@ variables.getString = function getString (text) {
 /**
  * List all variables in a JS file.
  *
- * @param {string} path
+ * @param {string} filepath the path to load.
  *
  * @example
  *   variables.getFile('foo.js')

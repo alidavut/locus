@@ -30,13 +30,33 @@ describe('variables.get', function ( ) {
 
 	})
 
-	it('never crashes for random programs', done => {
+	it('reports very few parse errors for random ASTs', done => {
 
-		for (let ith = 0; ith < constants.tests.variables.randomCaseCount; ith++) {
-			lib.getString(randomProgram( ))
+		const state = {
+			failed:    0,
+			total:     0,
 		}
 
-		done( )
+		for (let ith = 0; ith < constants.tests.variables.randomCaseCount; ith++) {
+
+			try {
+				state.total++
+				lib.getString(randomProgram( ), true)
+			} catch (err) {
+				if (err) {
+					state.failed++
+				}
+			}
+
+		}
+
+		const percentFailed = state.failed / state.total
+
+		if (percentFailed > constants.tests.variables.failedParseThreshold) {
+			done(new Error(`failed for ${ (percentFailed * 100).toFixed(2) }% of programs.`))
+		} else {
+			done( )
+		}
 
 	})
 
