@@ -13,7 +13,7 @@ const units = {
 const constants = {
 	tests: {
 		variables: {
-			duration:              100 * units.S_IN_MS,
+			duration:              	100 * units.S_IN_MS,
 			failedParseThreshold:  0.05,
 			randomCaseCount:       10000
 		}
