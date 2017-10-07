@@ -4,7 +4,7 @@ var script = fs.readFileSync(__dirname + '/script.js', 'utf-8');
 // to use in script.js
 global.__locus_modules__ = {
   deasync: require('deasync'),
-  parseStack: require('parse-stack'),
+  errorStackParser: require('error-stack-parser'),
   print: require('./print'),
   prompt: require('./prompt')
 }

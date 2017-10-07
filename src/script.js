@@ -1,5 +1,6 @@
-var __locus_stack__ = __locus_modules__.parseStack(new Error());
-var __locus_filepath__ = __locus_stack__[1].filepath;
+
+var __locus_stack__ = __locus_modules__.errorStackParser(new Error());
+var __locus_filepath__ = __locus_stack__[1].fileName;
 var __locus_line__ = __locus_stack__[1].lineNumber;
 
 __locus_modules__.deasync.loopWhile(function() {
