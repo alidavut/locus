@@ -16,7 +16,9 @@ fs.stat(history, function (err, stat) {
 
 	if (!stat) {
 		fs.mkdir(history, function (err) {
-			throw err;
+			if (err) {
+				throw err;
+			}
 		});
 	}
 
