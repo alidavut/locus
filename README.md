@@ -2,6 +2,7 @@
 =======
 
 [![Build Status](https://travis-ci.org/rgrannell1/locus.svg?branch=master)](https://travis-ci.org/rgrannell1/locus)
+[![Inline docs](http://inch-ci.org/github/rgrannell1/locus.svg?branch=master)](http://inch-ci.org/github/rgrannell1/locus)
 
 Locus is a debugging module which allows you to execute commands at runtime via a REPL.
 
