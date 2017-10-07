@@ -3,7 +3,7 @@ var readline = require('readline-history');
 var md5 = require('md5');
 var color = require('cli-color');
 var deasync = require('deasync');
-var d = require('./d');
+var variables = require('./variables');
 var _ = require('lodash');
 var _rl;
 
@@ -16,8 +16,7 @@ function getAllProperties(obj) {
 }
 
 function generateCompleter(filepath) {
-
-  var filed = Object.keys(global).concat(d.get(filepath));
+  var fileVariables = Object.keys(global).concat(variables.getFile(filepath));
 
   return function(line) {
     var lineArray = line.split('.');
@@ -31,7 +30,7 @@ function generateCompleter(filepath) {
     } else if (lineArray.length > 2) {
       possibleHints = [];
     } else {
-      possibleHints = filed;
+      possibleHints = fileVariables;
     }
 
     var hits = possibleHints.filter(function(c){
