@@ -30,7 +30,9 @@ variables.getString = function getString (text, strict = false) {
 
 	try {
 
-		const ast = espree.parse(text)
+		const ast = espree.parse(text, {
+			ecmaVersion: 9
+		})
 
 		const scopeManager = escope.analyze(ast)
 		const currentScope = scopeManager.acquire(ast)

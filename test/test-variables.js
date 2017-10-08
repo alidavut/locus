@@ -20,8 +20,10 @@ function randomProgram ( ) {
 
 	for (let ith = 0; ith < count; ++ith) {
 
+		let declarationType = ['var', 'const', 'let'][ (Math.floor(3 * Math.random( ))) ]
+
 		program.variables.add(`x${ith}`)
-		program.code += `\nlet x${ith} = 1;`
+		program.code += `\n${declarationType} x${ith} = 1;`
 	}
 
 	return program
@@ -41,7 +43,7 @@ describe('variables.get', function ( ) {
 
 			let program = randomProgram( )
 
-			const foundSet = lib.getString(program.code)
+			const foundSet = lib.getString(program.code, true)
 			let missing = [...program.variables].filter(variable => {
 				return !foundSet.has(variable)
 			})
