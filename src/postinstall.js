@@ -37,5 +37,12 @@ function addHistoryFolder ( ) {
 
 
 
+try {
+	addHistoryFolder( )
+} catch (err) {
 
-addHistoryFolder( )
+	console.log('Please report this error to the package maintainer.')
+	console.error(err)
+	process.exit(1)
+
+}

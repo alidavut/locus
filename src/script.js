@@ -17,7 +17,7 @@
 	__locus.modules.print.file(__locus.file, __locus_line__)
 
 	// -- for autocomplete improvements
-	global.__locus_eval__ = function(code) {
+	global.__locus.eval = function(code) {
 		return eval(code)
 	}
 
@@ -30,13 +30,14 @@
 
 		try {
 
-			// -- if an exit code is read, close the repl & exit.
+			// -- if the user enters 'exit', close the prompt & exit.
 			if (locus_code === 'exit') {
 
 				__locus.running = false
 				__locus.modules.prompt.close( )
 
 				break
+
 			} else {
 
 				__locus.modules.print.success(eval(locus_code))

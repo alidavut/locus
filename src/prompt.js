@@ -23,7 +23,7 @@ function generateCompleter(filepath) {
     var possibleHints;
 
     if (lineArray.length === 2) {
-      var object = __locus_eval__(lineArray[0]);
+      var object = __locus.eval(lineArray[0]);
       possibleHints = getAllProperties(object).map(function(i) {
         return lineArray[0] + '.' + i;
       });

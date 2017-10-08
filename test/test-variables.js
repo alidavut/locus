@@ -3,7 +3,6 @@
 
 const lib = require('../src/variables')
 const {expect} = require('chai')
-const esfuzz = require('esfuzz')
 const ugly   = require('uglify-js')
 const constants = require('../constants')
 
@@ -12,7 +11,20 @@ const constants = require('../constants')
 
 function randomProgram ( ) {
 
-	return ugly.AST_Node.from_mozilla_ast(esfuzz.generate( )).print_to_string( )
+	const program = {
+		variables: new Set([ ]),
+		code:      ''
+	}
+
+	const count = Math.floor(Math.random( ) * 15)
+
+	for (let ith = 0; ith < count; ++ith) {
+
+		program.variables.add(`x${ith}`)
+		program.code += `\nlet x${ith} = 1;`
+	}
+
+	return program
 
 }
 
@@ -25,41 +37,22 @@ describe('variables.get', function ( ) {
 
 	it('correctly parses variables', ( ) => {
 
-		expect(lib.getString(`let x = 1`)).to.include('x')
-		expect(lib.getString(`let x = 1; const y = 1`)).to.include('y')
-
-	})
-
-	it('reports very few parse errors for random ASTs', done => {
-
-		const state = {
-			failed:    0,
-			total:     0,
-		}
-
-		for (let ith = 0; ith < constants.tests.variables.randomCaseCount; ith++) {
+		for (let ith = 0; ith < 1000; ++ith) {
 
 			let program = randomProgram( )
 
-			try {
-				state.total++
-				lib.getString(program, true)
-			} catch (err) {
-				if (err) {
-					console.log(err)
-					console.log(program)
-					state.failed++
-				}
+			const foundSet = lib.getString(program.code)
+			let missing = [...program.variables].filter(variable => {
+				return !foundSet.has(variable)
+			})
+
+			if (missing.length > 0) {
+				throw new Error(JSON.stringify({
+					expected: [...program.variables],
+					found:    [...foundSet]
+				}, null, 2))
 			}
 
-		}
-
-		const percentFailed = state.failed / state.total
-
-		if (percentFailed > constants.tests.variables.failedParseThreshold) {
-			done(new Error(`failed for ${ (percentFailed * 100).toFixed(2) }% of programs.`))
-		} else {
-			done( )
 		}
 
 	})
