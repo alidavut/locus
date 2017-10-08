@@ -2,7 +2,7 @@
 'use strict'
 
 const escope = require('escope');
-const esprima = require('esprima');
+const espree = require('espree');
 const estraverse = require('estraverse');
 const fs = require('fs');
 
@@ -30,7 +30,7 @@ variables.getString = function getString (text, strict = false) {
 
 	try {
 
-		const ast = esprima.parse(text)
+		const ast = espree.parse(text)
 
 		const scopeManager = escope.analyze(ast)
 		const currentScope = scopeManager.acquire(ast)
@@ -51,8 +51,7 @@ variables.getString = function getString (text, strict = false) {
 			}
 		})
 
-
-	// no need to display parse-errors.
+	// -- no need to display parse-errors.
 
 	} catch (err) {
 		if (strict) {

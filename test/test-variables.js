@@ -39,11 +39,15 @@ describe('variables.get', function ( ) {
 
 		for (let ith = 0; ith < constants.tests.variables.randomCaseCount; ith++) {
 
+			let program = randomProgram( )
+
 			try {
 				state.total++
-				lib.getString(randomProgram( ), true)
+				lib.getString(program, true)
 			} catch (err) {
 				if (err) {
+					console.log(err)
+					console.log(program)
 					state.failed++
 				}
 			}

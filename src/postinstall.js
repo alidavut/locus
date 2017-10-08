@@ -1,26 +1,41 @@
 
-'use strict';
+'use strict'
 
-var fs = require('fs');
-var history = './histories';
+const fs = require('fs')
+const path = require('path')
+const history = path.join(__dirname, '../histories')
 
-fs.stat(history, function (err, stat) {
+/**
+ * Create a new history folder in a cross-platform manner.
+ *
+ */
 
-	if (err && err.code !== 'ENOENT') {
-		throw err;
-	}
+function addHistoryFolder ( ) {
 
-	if (stat && stat.isFile( )) {
-		throw new Error('please remove the file "' + history + '" so that locus can install correctly');
-	}
+	fs.stat(history, function (err, stat) {
 
-	if (!stat) {
-		fs.mkdir(history, function (err) {
-			if (err) {
-				throw err;
-			}
-		});
-	}
+		if (err && err.code !== 'ENOENT') {
+			throw err
+		}
 
-});
+		if (stat && stat.isFile( )) {
+			throw new Error('please remove the file "' + history + '" so that locus can install correctly')
+		}
 
+		if (!stat) {
+			fs.mkdir(history, function (err) {
+				if (err) {
+					throw err
+				}
+			})
+		}
+
+	})
+
+}
+
+
+
+
+
+addHistoryFolder( )
