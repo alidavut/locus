@@ -1,33 +1,52 @@
 
-var __locus_stack__ = __locus_modules__.errorStackParser.parse(new Error());
-var __locus_filepath__ = __locus_stack__[1].fileName;
-var __locus_line__ = __locus_stack__[1].lineNumber;
+/*
+ * start a REPL, and handle user input.
+ *
+ */
 
-__locus_modules__.deasync.loopWhile(function() {
-  return __locus_running__;
-});
+{
 
-__locus_modules__.print.file(__locus_filepath__, __locus_line__);
+	// -- capture details about the current file location.
 
-// for autocomplete improvements
-global.__locus_eval__ = function(code) {
-  return eval(code);
-}
+	const stack = __locus.modules.errorStackParser.parse(new Error( ))
 
-while (true) {
-  __locus_running__ = true;
+	const __locus.file = stack[1].fileName
+	const __locus.line = stack[1].lineNumber
 
-  var __locus_code__ = __locus_modules__.prompt.get(__locus_filepath__);
+	__locus.modules.deasync.loopWhile(( ) => __locus.running)
+	__locus.modules.print.file(__locus.file, __locus_line__)
 
-  try {
-    if (__locus_code__ === 'exit') {
-      __locus_running__ = false;
-      __locus_modules__.prompt.close();
-      break;
-    } else {
-      __locus_modules__.print.success(eval(__locus_code__));
-    }
-  } catch(err) {
-    __locus_modules__.print.error(err);
-  }
+	// -- for autocomplete improvements
+	global.__locus_eval__ = function(code) {
+		return eval(code)
+	}
+
+	// -- read user input in A REPL.
+	while (true) {
+
+		__locus.running = true
+
+		let locus_code = __locus.modules.prompt.get(__locus.file)
+
+		try {
+
+			// -- if an exit code is read, close the repl & exit.
+			if (locus_code === 'exit') {
+
+				__locus.running = false
+				__locus.modules.prompt.close( )
+
+				break
+			} else {
+
+				__locus.modules.print.success(eval(locus_code))
+
+			}
+
+		} catch(err) {
+			__locus.modules.print.error(err)
+		}
+
+	}
+
 }
