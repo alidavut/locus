@@ -36,6 +36,7 @@ print.file = (path, line) => {
 	var startLine = line > 7 ? line - 7 : 0
 	var lines = file.split('\n')
 
+	// -- todo simplify & remove use of xterm.
 	for (var ith = startLine; ith < line + 3 && ith < lines.length; ith++) {
 
 		var maxLineNumberLength = line.toString( ).length

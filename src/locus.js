@@ -1,9 +1,13 @@
+
+'use strict'
+
 const fs = require('fs')
 const script = fs.readFileSync(__dirname + '/script.js', 'utf-8')
 
 /**
  * used in script.js
  *
+ * global variables / state accessible throughout the module.
  *
  */
 
@@ -20,4 +24,5 @@ global.__locus = {
 
 global.__locus_running__ = false
 global.locus = script
+
 module.exports = script
