@@ -16,14 +16,14 @@ function getAllProperties(obj) {
 }
 
 function generateCompleter(filepath) {
-  var fileVariables = Object.keys(global).concat(variables.get(filepath));
+  var fileVariables = Object.keys(global).concat(variables.getFile(filepath));
 
   return function(line) {
     var lineArray = line.split('.');
     var possibleHints;
 
     if (lineArray.length === 2) {
-      var object = __locus_eval__(lineArray[0]);
+      var object = __locus.eval(lineArray[0]);
       possibleHints = getAllProperties(object).map(function(i) {
         return lineArray[0] + '.' + i;
       });

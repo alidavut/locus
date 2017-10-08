@@ -1,13 +1,28 @@
-var fs = require('fs');
-var script = fs.readFileSync(__dirname + '/script.js', 'utf-8');
 
-// to use in script.js
-global.__locus_modules__ = {
-  deasync: require('deasync'),
-  parseStack: require('parse-stack'),
-  print: require('./print'),
-  prompt: require('./prompt')
+'use strict'
+
+const fs = require('fs')
+const script = fs.readFileSync(__dirname + '/script.js', 'utf-8')
+
+/**
+ * used in script.js
+ *
+ * global variables / state accessible throughout the module.
+ *
+ */
+
+global.__locus = {
+	running: false,
+	modules: {
+		deasync:          require('deasync'),
+		errorStackParser: require('error-stack-parser'),
+		print:            require('./print'),
+		prompt:           require('./prompt')
+	}
 }
 
-global.__locus_running__ = false;
-global.locus = module.exports = script;
+
+global.__locus_running__ = false
+global.locus = script
+
+module.exports = script
