@@ -4,7 +4,7 @@ const util = require('util')
 const color = require('cli-color')
 const highlight = require('cardinal').highlight
 const syntaxTheme = require('cardinal/themes/tomorrow-night.js')
-const _ = require('lodash')
+const (require('lodash'))
 
 
 
@@ -36,7 +36,7 @@ print.file = (path, line) => {
 	var startLine = line > 7 ? line - 7 : 0
 	var lines = file.split('\n')
 
-	// -- todo simplify & remove use of xterm.
+	// -- todo simplify.
 	for (var ith = startLine; ith < line + 3 && ith < lines.length; ith++) {
 
 		var maxLineNumberLength = line.toString( ).length
@@ -47,9 +47,9 @@ print.file = (path, line) => {
 			var lineNumber = ith + 1
 		}
 
-		lineNumber = _.padStart(lineNumber + ': ', maxLineNumberLength + 6)
+		let paddedLineNumber = (lineNumber + ': ').padStart(maxLineNumberLength + 6)
 
-		console.log(color.xterm(111)(lineNumber) + lines[ith])
+		console.log(color.xterm(111)(paddedLineNumber) + lines[ith])
 	}
 
 	console.log()
