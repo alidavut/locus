@@ -1,0 +1,13 @@
+const path = require('path');
+const fs = require('fs');
+const { exec } = require('child_process');
+
+const historiesPath = path.normalize('./histories');
+
+if(!fs.existsSync(historiesPath)) {
+  exec('mkdir ' + historiesPath, (error) => {
+    if (error) {
+      throw new Error(`error making histories directory: ${error}`);
+    }
+  });
+}
